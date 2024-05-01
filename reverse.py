@@ -1,10 +1,17 @@
-# api/reverse_words.py
+# api/reverse.py
 
 from http.server import BaseHTTPRequestHandler
 from urllib.parse import parse_qs
 import json
 
 class handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        # Send a response to GET requests
+        self.send_response(200)
+        self.send_header('Content-type', 'text/html')
+        self.end_headers()
+        self.wfile.write("Welcome to the Reverse API!".encode())
+
     def do_POST(self):
         # Read the request body
         content_length = int(self.headers['Content-Length'])
@@ -32,4 +39,3 @@ class handler(BaseHTTPRequestHandler):
             self.end_headers()
             response = {"error": str(e)}
             self.wfile.write(json.dumps(response).encode())
-
